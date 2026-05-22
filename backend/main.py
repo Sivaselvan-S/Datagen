@@ -197,9 +197,13 @@ async def create_job(
                     _, ext = os.path.splitext(src_path)
                     dest_path = os.path.join(job_dir, f"sample_image{ext.lower()}")
                     
-                    import shutil
-                    shutil.copy2(src_path, dest_path)
-                    logger.info(f"Copied existing sample image from {src_path} to {dest_path}")
+                    # Prevent copying a file onto itself, which throws WinError 32 on Windows
+                    if os.path.normpath(src_path).lower() != os.path.normpath(dest_path).lower():
+                        import shutil
+                        shutil.copy2(src_path, dest_path)
+                        logger.info(f"Copied existing sample image from {src_path} to {dest_path}")
+                    else:
+                        logger.info(f"Sample image already exists at destination, skipping copy: {dest_path}")
                     
                     # Update job state with sample image info
                     job_store.update_job(job_id, {
