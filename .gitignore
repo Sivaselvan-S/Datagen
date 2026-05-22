@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+venv/
+ENV/
+env/
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+
+# Backend output and logs
+outputs/
+outputs_test_append/
+*.log
+
+# Node / Frontend dependencies
+node_modules/
+dist/
+.eslintcache
+
+# OS Metadata
+.DS_Store
+Thumbs.db
